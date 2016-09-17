@@ -1,5 +1,9 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+@import url("../node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.css");
+
+.slds-is-draggable {
+  cursor: grab;
+}
+
+.slds-is-draggable:active {
+  cursor: grabbing;
 }
