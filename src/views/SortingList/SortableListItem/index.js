@@ -71,14 +71,25 @@ class SortableListItem extends Component {
       isGrabbed: false
     }
 
-    this.dropItem = this.dropItem.bind(this)
+    this.cancelMove = this.cancelMove.bind(this);
+    this.dropItem = this.dropItem.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.moveItemDown = this.moveItemDown.bind(this);
     this.moveItemUp = this.moveItemUp.bind(this);
     this.toggleGrabbed = this.toggleGrabbed.bind(this);
   }
 
+  cancelMove() {
+    if(this.state.isGrabbed) {
+      this.props.cancelMove(this.props.index);
+      this.setState({
+        'isGrabbed': false
+      });
+    }
+  }
+
   dropItem() {
+    this.props.dropItem(this.props.index);
     this.setState({
       'isGrabbed': false
     });
@@ -94,7 +105,7 @@ class SortableListItem extends Component {
 
       case 'Escape':
         e.preventDefault();
-        this.dropItem();
+        this.cancelMove();
         break;
 
       case 'Tab':
@@ -130,6 +141,12 @@ class SortableListItem extends Component {
   }
 
   toggleGrabbed() {
+    if(!this.state.isGrabbed) {
+      this.props.grabItem(this.props.index);
+    } else {
+      this.props.dropItem(this.props.index);
+    }
+
     this.setState({
       isGrabbed: !this.state.isGrabbed
     });
@@ -148,6 +165,7 @@ class SortableListItem extends Component {
     return connectDragSource(connectDropTarget(
       <li className="slds-sortable-list__list-item" style={styles}>
         <a
+          aria-describedby={this.props.ariaDescribedby}
           onKeyDown={this.handleKeyDown}
           href="#"
           className={itemClasses}
@@ -160,13 +178,17 @@ class SortableListItem extends Component {
 }
 
 SortableListItem.propTypes = {
+  ariaDescribedby: PropTypes.string,
+  cancelMove: PropTypes.func,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   isDragging: PropTypes.bool.isRequired,
   id: PropTypes.any.isRequired,
   text: PropTypes.string.isRequired,
-  moveItem: PropTypes.func.isRequired
+  moveItem: PropTypes.func.isRequired,
+  dropItem: PropTypes.func,
+  grabItem: PropTypes.func,
 }
 
 export default flow([

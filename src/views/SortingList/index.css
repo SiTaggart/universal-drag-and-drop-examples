@@ -12,3 +12,7 @@
 .slds-sortable-list__list-item:last-child .slds-sortable-list__item {
   border-bottom-width: 1px;
 }
+
+.slds-sortable-list__item.slds-is-grabbed {
+  border-bottom-width: 1px;
+}
