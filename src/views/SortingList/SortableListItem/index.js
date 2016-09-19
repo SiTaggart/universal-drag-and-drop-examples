@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { findDOMNode } from 'react-dom';
+import classNames from 'classnames';
 import ItemTypes from '../ItemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
@@ -62,15 +63,95 @@ const itemTarget = {
 };
 
 class SortableListItem extends Component {
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      isGrabbed: false
+    }
+
+    this.dropItem = this.dropItem.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.moveItemDown = this.moveItemDown.bind(this);
+    this.moveItemUp = this.moveItemUp.bind(this);
+    this.toggleGrabbed = this.toggleGrabbed.bind(this);
+  }
+
+  dropItem() {
+    this.setState({
+      'isGrabbed': false
+    });
+  }
+
+  handleKeyDown(e) {
+
+    switch (e.key) {
+      case ' ':
+        e.preventDefault();
+        this.toggleGrabbed();
+        break;
+
+      case 'Escape':
+        e.preventDefault();
+        this.dropItem();
+        break;
+
+      case 'Tab':
+        if(this.state.isGrabbed) {
+          e.preventDefault();
+        }
+        break;
+
+      case 'ArrowDown':
+        e.preventDefault();
+        this.moveItemDown();
+        break;
+
+      case 'ArrowUp':
+        e.preventDefault();
+        this.moveItemUp();
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
+  moveItemDown() {
+    if(!this.state.isGrabbed) return;
+    this.props.moveItem(this.props.index, (this.props.index + 1));
+  }
+
+  moveItemUp() {
+    if(!this.state.isGrabbed) return;
+    this.props.moveItem(this.props.index, (this.props.index - 1));
+  }
+
+  toggleGrabbed() {
+    this.setState({
+      isGrabbed: !this.state.isGrabbed
+    });
+  }
+
   render () {
     const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
     const styles = {
       opacity: isDragging ? 0 : 1
     };
+    const itemClasses = classNames(
+      'slds-sortable-list__item slds-p-around--medium slds-is-draggable',
+      {'slds-is-grabbed': (this.state.isGrabbed || isDragging)}
+    );
 
     return connectDragSource(connectDropTarget(
       <li className="slds-sortable-list__list-item" style={styles}>
-        <a href="#" className="slds-sortable-list__item slds-p-around--medium slds-is-draggable">
+        <a
+          onKeyDown={this.handleKeyDown}
+          href="#"
+          className={itemClasses}
+        >
           {text}
         </a>
       </li>

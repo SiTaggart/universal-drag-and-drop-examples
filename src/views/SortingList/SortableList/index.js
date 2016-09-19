@@ -37,6 +37,11 @@ class SortableList extends Component {
   }
 
   moveItem(dragIndex, hoverIndex) {
+    if(hoverIndex < 0 || hoverIndex > this.state.listItems.length) {
+      console.log('too high too low:', hoverIndex);
+      return;
+    }
+
     const { listItems } = this.state;
     const dragItem = listItems[dragIndex];
 

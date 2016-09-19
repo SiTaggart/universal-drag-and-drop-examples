@@ -7,3 +7,7 @@
 .slds-is-draggable:active {
   cursor: grabbing;
 }
+
+.slds-is-grabbed {
+ transform: scale(1.02) rotate(1deg);
+}
