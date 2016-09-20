@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
+import Icon from '../../../components/icon';
 
 class Item extends Component {
   render () {
@@ -18,9 +19,12 @@ class Item extends Component {
       >
         <div className="slds-app-launcher__tile-figure">
           <span className="slds-avatar slds-avatar--large slds-align--absolute-center slds-icon-custom-27">{initials}</span>
-          <span className="slds-icon_container" title="Drag item to a new location">
-            <span className="slds-assistive-text">Drag item to a new location</span>
-          </span>
+          <Icon
+            assistiveText="Drag item to a new location"
+            sprite="utility"
+            symbol="rows"
+            size="x-small"
+          />
         </div>
         <div className="slds-app-launcher__tile-body">
           <span className="slds-text-link">{title}</span>
