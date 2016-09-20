@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { findDOMNode } from 'react-dom';
-import classNames from 'classnames';
 import ItemTypes from '../ItemTypes';
+import Item from '../Item';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
 
@@ -153,25 +153,22 @@ class SortableListItem extends Component {
   }
 
   render () {
-    const { text, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { title, description, initials, ariaDescribedby, isDragging, connectDragSource, connectDropTarget } = this.props;
     const styles = {
       opacity: isDragging ? 0 : 1
     };
-    const itemClasses = classNames(
-      'slds-sortable-list__item slds-p-around--medium slds-is-draggable',
-      {'slds-is-grabbed': (this.state.isGrabbed || isDragging)}
-    );
 
     return connectDragSource(connectDropTarget(
-      <li className="slds-sortable-list__list-item" style={styles}>
-        <a
-          aria-describedby={this.props.ariaDescribedby}
-          onKeyDown={this.handleKeyDown}
-          href="#"
-          className={itemClasses}
-        >
-          {text}
-        </a>
+      <li className="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-sortable-list__list-item" style={styles}>
+        <Item
+          title={title}
+          description={description}
+          initials={initials}
+          ariaDescribedby={ariaDescribedby}
+          isDragging={isDragging}
+          isGrabbed={this.state.isGrabbed}
+          handleKeyDown={this.handleKeyDown}
+        />
       </li>
     ));
   }
@@ -182,10 +179,12 @@ SortableListItem.propTypes = {
   cancelMove: PropTypes.func,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  description: PropTypes.string,
   index: PropTypes.number.isRequired,
   isDragging: PropTypes.bool.isRequired,
   id: PropTypes.any.isRequired,
-  text: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  Initials: PropTypes.string,
   moveItem: PropTypes.func.isRequired,
   dropItem: PropTypes.func,
   grabItem: PropTypes.func,

@@ -9,25 +9,39 @@ class SortingListView extends Component {
     this.state = {
       listItems: [{
         id: 1,
-        text: 'Home'
+        title: 'Sales Cloud',
+        initials: 'SC',
+        description: 'The primary internal Salesforce org. Used to run our...'
       }, {
         id: 2,
-        text: 'Opportunities'
+        title: 'Marketing Cloud',
+        initials: 'MC',
+        description: 'Salesforce Marketing Cloud lets businesses of any size...'
       }, {
         id: 3,
-        text: 'Leads'
+        title: 'HR Concierge',
+        initials: 'HR',
+        description: 'Community for managing employee benefits and time off.'
       }, {
         id: 4,
-        text: 'Accounts'
+        title: 'My Money',
+        initials: 'MM',
+        description: 'Manage your finances across multiple financial platforms...'
       }, {
         id: 5,
-        text: 'Contacts'
+        title: 'Call Center',
+        initials: 'CC',
+        description: 'The key to call center and contact center management is more...'
       }, {
         id: 6,
-        text: 'Campaigns'
+        title: 'Customer Support Community',
+        initials: 'CS',
+        description: 'Areas of Focus are used to track customer support for your...'
       }, {
         id: 7,
-        text: 'Reports'
+        title: 'Salesforce Chatter',
+        initials: 'CH',
+        description: 'The Salesforce Chatter social network, including profiles and feeds'
       }]
     };
   }

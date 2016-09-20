@@ -23,7 +23,7 @@ class SortableList extends Component {
   }
 
   getItemName(index) {
-    return this.state.listItems[index].text;
+    return this.state.listItems[index].title;
   }
 
   getItemPosition(index) {
@@ -47,7 +47,7 @@ class SortableList extends Component {
           [hoverIndex, 0, dragItem]
         ]
       },
-      'liveText': {$set: `${dragItem.text}. New position in list: ${pos}`}
+      'liveText': {$set: `${dragItem.title}. New position in list: ${pos}`}
     });
 
     this.setState(newState);
@@ -88,7 +88,7 @@ class SortableList extends Component {
       <div>
         <div id="item-instructions" className="slds-assistive-text">Press spacebar to grab and re-order</div>
         <div aria-live="assertive" className="slds-assistive-text">{this.state.liveText}</div>
-        <ul className="slds-sortable-list">
+        <ul className="slds-grid slds-grid--pull-padded slds-wrap slds-sortable-list">
           {listItems.map((item, i) => {
             return (
               <SortableListItem
@@ -96,7 +96,9 @@ class SortableList extends Component {
                 key={item.id}
                 index={i}
                 id={item.id}
-                text={item.text}
+                title={item.title}
+                initials={item.initials}
+                description={item.description}
                 cancelMove={this.cancelMove}
                 moveItem={this.moveItem}
                 dropItem={this.dropItem}
