@@ -68,11 +68,11 @@ class SortableListItem extends Component {
     super(props)
 
     this.state = {
-      isGrabbed: false
+      isGrabbed: false,
+      ariaDescribedby: this.props.ariaDescribedby
     }
 
     this.cancelMove = this.cancelMove.bind(this);
-    this.dropItem = this.dropItem.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.moveItemDown = this.moveItemDown.bind(this);
     this.moveItemUp = this.moveItemUp.bind(this);
@@ -86,13 +86,6 @@ class SortableListItem extends Component {
         'isGrabbed': false
       });
     }
-  }
-
-  dropItem() {
-    this.props.dropItem(this.props.index);
-    this.setState({
-      'isGrabbed': false
-    });
   }
 
   handleKeyDown(e) {
@@ -148,12 +141,14 @@ class SortableListItem extends Component {
     }
 
     this.setState({
-      isGrabbed: !this.state.isGrabbed
+      isGrabbed: !this.state.isGrabbed,
+      ariaDescribedby: (this.state.isGrabbed) ? this.props.ariaDescribedby : null
     });
   }
 
   render () {
-    const { title, description, initials, ariaDescribedby, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { title, description, initials, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { ariaDescribedby } = this.state;
     const styles = {
       opacity: isDragging ? 0 : 1
     };
