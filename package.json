@@ -5,7 +5,6 @@
   "devDependencies": {},
   "dependencies": {
     "@salesforce-ux/design-system": "^2.1.2",
-    "basic-auth": "^1.0.4",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "express": "^4.14.0",
